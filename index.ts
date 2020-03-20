@@ -1,11 +1,11 @@
 import { hostname } from 'os'
 import GatewayConfig from './config/index'
 import DiscordSocket, { DiscordSocketState } from './websocket/DiscordSocket'
-import ICacheProvider from './websocket/cache/ICacheProvider'
+import conf from './config'
 
 let r = new DiscordSocket(Object.assign({
     stateUpdateInterval: 5000,
-    token: 'NDkxNjczNDgwMDA2MjA1NDYx.XnR99g.QfYc8iqTTQGHWsIEmePXQgEanmE'
+    token: conf.token
 } as GatewayConfig, GatewayConfig.prototype), new DiscordSocketState)
 
 r.start()
