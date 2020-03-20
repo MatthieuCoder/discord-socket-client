@@ -159,6 +159,7 @@ export default class DiscordSocket extends EventEmitter {
                 '$browser': 'HeroBot Raw Lib',
                 '$device': 'HeroBot Raw Lib'
             },
+            'guild_subscriptions': false,
             'v': 6,
             'compress': true
         }
@@ -172,7 +173,7 @@ export default class DiscordSocket extends EventEmitter {
             'session_id': this.socketState.resume_token,
             'seq': this.socketState.sequence
         }
-        this.emit('log', 'Connecting with a new session!')
+        this.emit('log', 'Resuming previous session!')
         this.send(payload, OpCodes.RESUME)
     }
 
@@ -181,7 +182,7 @@ export default class DiscordSocket extends EventEmitter {
     }
 
     private packetRecieve(data: WebSocket.Data): void {
-        const payload: { op: OpCodes, s: number, d: any, t: string } = this.unpack(data as Buffer)
+        const payload: { op: number, s: number, d: any, t: string } = this.unpack(data as Buffer)
 
         if(!payload || payload.op === undefined) return
 
@@ -190,31 +191,47 @@ export default class DiscordSocket extends EventEmitter {
                 ...this.socketState,
                 sequence: payload.s
             })
-        
+
         switch(payload.op) {
             case OpCodes.HELLO:
                 this.startHeartbeat(payload.d['heartbeat_interval'])
                 this.login()
+                break
             case OpCodes.HEARTBEAT_ACK:
                 this.emit('heartbeatAck')
+                break
             case OpCodes.DISPATCH:
                 this.handleDispatch(payload.t, payload.d)
+                break
             case OpCodes.RECONNECT:
                 if(this.socketState.resume_token) {
                     this.updateState(new DiscordSocketState)
                     this.destroy(true)
                 }
+                break
             case OpCodes.INVALID_SESSION:
                 if(this.socketState.resume_token) {
                     this.updateState(new DiscordSocketState)
                     this.destroy(true)
                 }
+                break
             default:
                 // Unknown event!
         }
     }
     public handleDispatch(t: string, d: any) {
-        throw new Error("Method not implemented.")
+        if(t === 'READY') {
+            this.updateState({
+                ...this.socketState,
+                resume_token: d.session_id
+            })
+            this.emit('log', `New connected as: ${d.user.username}#${d.user.discriminator}`)
+            this.emit('log', 'Session saved! ', this.socketState.resume_token)
+
+            setTimeout(() => {
+                this.destroy(true)
+            },5000)
+        }
     }
 
     private unpack(dataArray: Buffer | ArrayBuffer): any {
@@ -248,7 +265,6 @@ export default class DiscordSocket extends EventEmitter {
     }
 
     private send(d: {}, op: OpCodes): any {
-        console.log(d)
         if(this.connectionState.websocket && this.connectionState.websocket.readyState === WebSocket.OPEN)
             this.connectionState.websocket.send(pack({ op, d }))
     }
@@ -262,6 +278,7 @@ export default class DiscordSocket extends EventEmitter {
             this.once('heartbeatAck', () => {
                 this.didLastHeartbeat = true
                 this.connectionState.letency = new Date().getTime() - lastHeartbeat
+                this.emit('log', `New latency ${this.connectionState.letency}`)
             })
         }
         this.send(this.socketState.sequence, OpCodes.HEARTBEAT)
