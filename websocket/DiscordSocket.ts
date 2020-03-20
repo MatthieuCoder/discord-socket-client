@@ -227,10 +227,6 @@ export default class DiscordSocket extends EventEmitter {
             })
             this.emit('log', `New connected as: ${d.user.username}#${d.user.discriminator}`)
             this.emit('log', 'Session saved! ', this.socketState.resume_token)
-
-            setTimeout(() => {
-                this.destroy(true)
-            },5000)
         }
     }
 
