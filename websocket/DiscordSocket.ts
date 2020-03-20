@@ -274,7 +274,7 @@ export default class DiscordSocket extends EventEmitter {
             this.once('heartbeatAck', () => {
                 this.didLastHeartbeat = true
                 this.connectionState.letency = new Date().getTime() - lastHeartbeat
-                this.emit('log', `New latency ${this.connectionState.letency}`)
+                this.emit('log', `Latency updated ${this.connectionState.letency}`)
             })
         }
         this.send(this.socketState.sequence, OpCodes.HEARTBEAT)
