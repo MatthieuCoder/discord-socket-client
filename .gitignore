@@ -1,9 +1,3 @@
-dist/
-./index.ts
 yarn-error.log
 yarn.lock
-websocket/discord
 node_modules/
-config.ts
-
-*.dev.ts

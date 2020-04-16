@@ -58,7 +58,6 @@ export class DiscordSocketState {
 }
 //#endregion
 
-
 export default class DiscordSocket extends EventEmitter {
 
     //#region Fields
@@ -159,7 +158,7 @@ export default class DiscordSocket extends EventEmitter {
                 '$browser': 'HeroBot Raw Lib',
                 '$device': 'HeroBot Raw Lib'
             },
-            'guild_subscriptions': false,
+            //'guild_subscriptions': false,
             'v': 6,
             'compress': true
         }
@@ -226,10 +225,10 @@ export default class DiscordSocket extends EventEmitter {
                 resume_token: d.session_id
             })
             this.emit('log', `New connected as: ${d.user.username}#${d.user.discriminator}`)
-            this.emit('log', 'Session saved! ', this.socketState.resume_token)
         }
+        console.log(t, d)
     }
-
+//#region Unpack and encryption
     private unpack(dataArray: Buffer | ArrayBuffer): any {
         {
             let data: Buffer
@@ -259,7 +258,7 @@ export default class DiscordSocket extends EventEmitter {
             return unpack(this.connectionState.inflator.result as Buffer)
         } catch(e) { this.disconnect(-1, 'Can\'t unpack the data!', e) }
     }
-
+//#endregion
     private send(d: {}, op: OpCodes): any {
         if(this.connectionState.websocket && this.connectionState.websocket.readyState === WebSocket.OPEN)
             this.connectionState.websocket.send(pack({ op, d }))
@@ -283,5 +282,6 @@ export default class DiscordSocket extends EventEmitter {
     private startHeartbeat(interval: number) {
         this.connectionState.interval = interval
         this.connectionState.heartbeat = setInterval(this.doHeartbeat.bind(this),interval)
+        this.emit('log', 'Socket heartbeat started.')
     }
 }

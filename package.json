@@ -13,6 +13,6 @@
     "zlib-sync": "^0.1.6"
   },
   "scripts": {
-    "start": "tsc -p . || true && cd dist && node index"
+    "build": "tsc -p . || true && cd dist && node index"
   }
 }

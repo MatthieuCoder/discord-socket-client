@@ -1,11 +1,3 @@
-import { hostname } from 'os'
-import GatewayConfig from './config/index'
-import DiscordSocket, { DiscordSocketState } from './websocket/DiscordSocket'
-import conf from './config'
+import DiscordSocket from "./websocket/DiscordSocket";
 
-let r = new DiscordSocket(Object.assign({
-    stateUpdateInterval: 5000,
-    token: conf.token
-} as GatewayConfig, GatewayConfig.prototype), new DiscordSocketState)
-
-r.start()
+export default DiscordSocket
