@@ -90,11 +90,6 @@ export default class DiscordSocket extends EventEmitter {
             this.stateUpdated = false
         }, this.configuration.stateUpdateInterval)
 
-        if(process.env.NODE_ENV !== 'production')  {
-            this.on('log', console.log)
-            this.on('error', console.error)
-        }
-
         this.on('disconnected', () => this.destroy(configuration.reconnect))
 
         this.emit('log', `SocketState sytem started. Updating every ${this.configuration.stateUpdateInterval}ms`)
@@ -226,7 +221,7 @@ export default class DiscordSocket extends EventEmitter {
             })
             this.emit('log', `New connected as: ${d.user.username}#${d.user.discriminator}`)
         }
-        console.log(t, d)
+        this.emit('event', { type: t, data: d })
     }
 //#region Unpack and encryption
     private unpack(dataArray: Buffer | ArrayBuffer): any {

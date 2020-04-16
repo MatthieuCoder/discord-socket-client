@@ -75,10 +75,6 @@ var DiscordSocket = /** @class */ (function (_super) {
                 _this.emit('sessionUpdated', _this.socketState);
             _this.stateUpdated = false;
         }, _this.configuration.stateUpdateInterval);
-        if (process.env.NODE_ENV !== 'production') {
-            _this.on('log', console.log);
-            _this.on('error', console.error);
-        }
         _this.on('disconnected', function () { return _this.destroy(configuration.reconnect); });
         _this.emit('log', "SocketState sytem started. Updating every " + _this.configuration.stateUpdateInterval + "ms");
         return _this;
@@ -185,7 +181,7 @@ var DiscordSocket = /** @class */ (function (_super) {
             this.updateState(__assign(__assign({}, this.socketState), { resume_token: d.session_id }));
             this.emit('log', "New connected as: " + d.user.username + "#" + d.user.discriminator);
         }
-        console.log(t, d);
+        this.emit('event', { type: t, data: d });
     };
     //#region Unpack and encryption
     DiscordSocket.prototype.unpack = function (dataArray) {
