@@ -3,6 +3,7 @@
         "outDir": "dist",
         "esModuleInterop": true,
         "noUnusedParameters": true,
-        "noImplicitAny": true
+        "noImplicitAny": true,
+        "declaration": true
     }
 }
