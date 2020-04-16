@@ -4,4 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 exports.__esModule = true;
 var DiscordSocket_1 = __importDefault(require("./websocket/DiscordSocket"));
-exports["default"] = DiscordSocket_1["default"];
+var config_1 = __importDefault(require("./config"));
+exports["default"] = {
+    DiscordSocket: DiscordSocket_1["default"],
+    DiscordConfig: config_1["default"]
+};
