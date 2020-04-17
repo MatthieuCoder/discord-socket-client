@@ -68,6 +68,7 @@ export default class DiscordSocket extends EventEmitter {
     
     private stateUpdated: boolean
     private didLastHeartbeat: boolean
+
     //#endregion
 
     //#region External methods
@@ -93,6 +94,10 @@ export default class DiscordSocket extends EventEmitter {
         this.on('disconnected', () => this.destroy(configuration.reconnect))
 
         this.emit('log', `SocketState sytem started. Updating every ${this.configuration.stateUpdateInterval}ms`)
+    }
+
+    public getConnectionState() {
+        return this.connectionState
     }
 
     public start(restart: boolean = false): void {

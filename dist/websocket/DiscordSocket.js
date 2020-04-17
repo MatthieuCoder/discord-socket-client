@@ -79,6 +79,9 @@ var DiscordSocket = /** @class */ (function (_super) {
         _this.emit('log', "SocketState sytem started. Updating every " + _this.configuration.stateUpdateInterval + "ms");
         return _this;
     }
+    DiscordSocket.prototype.getConnectionState = function () {
+        return this.connectionState;
+    };
     DiscordSocket.prototype.start = function (restart) {
         if (restart === void 0) { restart = false; }
         this.emit('log', (restart ? 'Re-C' : 'C') + "onnecting to the gateway.");

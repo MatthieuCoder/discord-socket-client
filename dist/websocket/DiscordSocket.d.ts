@@ -47,6 +47,7 @@ export default class DiscordSocket extends EventEmitter {
      * @param state The state of the socket session
      */
     constructor(configuration: GatewayConfig, state?: DiscordSocketState);
+    getConnectionState(): DiscordConnectionState;
     start(restart?: boolean): void;
     stop(): void;
     destroy(restart?: boolean): void;
