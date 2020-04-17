@@ -158,7 +158,7 @@ export default class DiscordSocket extends EventEmitter {
                 '$browser': 'HeroBot Raw Lib',
                 '$device': 'HeroBot Raw Lib'
             },
-            //'guild_subscriptions': false,
+            'guild_subscriptions': false,
             'v': 6,
             'compress': true
         }
