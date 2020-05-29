@@ -12,17 +12,6 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -48,13 +37,16 @@ var Client = /** @class */ (function (_super) {
             _this.self = data.user;
             _this.application = data.application;
         });
-        _this.on('guildCreate', function (guild) {
-            _this.guildsCache.set(guild.id, __assign({}, guild));
-        });
         return _this;
     }
     Client.prototype.onDispatch = function (event) {
         this.emit(RawEventNames_1.toFriendlyName(event.t), event.d);
+    };
+    Client.prototype.getSelfUser = function () {
+        return this.self;
+    };
+    Client.prototype.getSelfApplication = function () {
+        return this.application;
     };
     return Client;
 }(events_1.EventEmitter));

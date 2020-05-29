@@ -9,15 +9,11 @@ export default interface Client extends EventEmitter {
 export default class Client extends EventEmitter implements Client {
     private readonly options;
     private self;
-    private usersCache;
-    private guildsCache;
-    private membersCache;
-    private rolesCache;
-    private channelsCache;
-    private sessionCache;
     private websocket;
     private application;
     constructor(options: ClientOptions);
     private onDispatch;
     start: () => void;
+    getSelfUser(): any;
+    getSelfApplication(): any;
 }

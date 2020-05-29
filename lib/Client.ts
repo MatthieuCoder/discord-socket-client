@@ -13,15 +13,6 @@ export default class Client extends EventEmitter implements Client {
     private readonly options: ClientOptions;
 
     private self: any
-
-    private usersCache: AbstractCacheProvider;
-    private guildsCache: AbstractCacheProvider;
-    private membersCache: AbstractCacheProvider;
-    private rolesCache: AbstractCacheProvider;
-    private channelsCache: AbstractCacheProvider;
-
-    private sessionCache: AbstractCacheProvider;
-
     private websocket: WebSocketClient;
     private application: any;
 
@@ -41,18 +32,16 @@ export default class Client extends EventEmitter implements Client {
             this.self = data.user;
             this.application = data.application;
         })
-
-        this.on('guildCreate', (guild) => {
-            this.guildsCache.set(
-                guild.id,
-                {
-                    ...guild
-                }
-            )
-        })
     }
     private onDispatch(event: { d: any, t: string }) {
         this.emit(toFriendlyName(event.t), event.d)
     }
     public start = () => this.websocket.start()
+
+    public getSelfUser() {
+        return this.self
+    }
+    public getSelfApplication() {
+        return this.application
+    }
 }
