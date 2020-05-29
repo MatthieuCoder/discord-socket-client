@@ -16,10 +16,3 @@ exports["default"] = {
     FlagManager: Flags_1["default"],
     Client: Client_1["default"]
 };
-new Client_1["default"]({
-    token: 'NzEzMDM4MTk4MzEzNTgyNjIz.XsutIg.h66Y4IRYqiwhCArAE1KV_hoWYk0'
-})
-    .on('messageCreate', function (message) {
-    console.log(message.author.username + ": " + message.content);
-})
-    .start();

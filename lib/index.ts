@@ -12,11 +12,3 @@ export default {
     FlagManager,
     Client
 }
-
-new Client({
-    token: 'NzEzMDM4MTk4MzEzNTgyNjIz.XsutIg.h66Y4IRYqiwhCArAE1KV_hoWYk0',
-})
-    .on('messageCreate', (message) => {
-        console.log(`${message.author.username}: ${message.content}`)
-    })
-    .start()
