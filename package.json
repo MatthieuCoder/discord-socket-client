@@ -1,12 +1,11 @@
 {
-  "name": "herobot-socket-handler",
-  "version": "1.0.0",
+  "name": "simple-socket-client",
+  "version": "1.0.1",
   "description": "Some stuff to recieve events from the discord gateway.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "author": "Matthieu",
   "license": "APACHE-2",
-  "private": true,
   "dependencies": {
     "@types/node-fetch": "^2.5.7",
     "@types/ws": "^7.2.3",
@@ -14,8 +13,7 @@
     "fetch": "^1.1.0",
     "node-fetch": "^2.6.0",
     "pako": "^1.0.11",
-    "ws": "^7.2.3",
-    "zlib-sync": "^0.1.6"
+    "ws": "^7.2.3"
   },
   "scripts": {
     "build": "tsc -p . || true && cd dist && node index"
