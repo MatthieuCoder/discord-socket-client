@@ -11,7 +11,7 @@ exports.__esModule = true;
 var Flags_1 = __importDefault(require("./utils/Flags"));
 var Client_1 = __importDefault(require("./Client"));
 exports["default"] = {
-    version: '',
+    version: '1.0',
     commit: '',
     FlagManager: Flags_1["default"],
     Client: Client_1["default"]

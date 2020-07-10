@@ -1,5 +1,5 @@
 {
-  "name": "@matthieu/simple-socket-client",
+  "name": "simple-socket-client",
   "version": "1.0.5",
   "description": "Some stuff to recieve events from the discord gateway.",
   "main": "dist/index.js",

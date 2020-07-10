@@ -7,7 +7,7 @@ import FlagManager from './utils/Flags'
 import Client  from './Client'
 
 export default {
-    version: '',
+    version: '1.0',
     commit:  '',
     FlagManager,
     Client
